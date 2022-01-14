@@ -85,7 +85,59 @@ public class GestionSnake {
         return temp;
     }
 
-    
+    public void deplacementSnake(int[][] g, char direction){
+        switch (direction) {
+            case 'w':
+                headY--;
+                break;
+            case 'a':
+                headX--;
+                break;
+            case 's':
+                headY++;
+                break;
+            case 'd':
+                headX++;
+                break;
+            default:
+                break;
+        }
+        // Gestion de la case qui vient
+        if (g[headY][headX] == -1) {
+            longueur++;
+            this.game[headY][headX] = 0;
+            g[headY][headX] = 0;
+        }
+        if (game[headY][headX] == -2) {
+            System.out.println("YOU LOSE");
+        }
+        if (game[headY][headX] > 0) {
+            System.out.println("YOU LOSE");
+        }
+
+        // gestion du mouvement du snake
+        for (int i = 1; i < g.length - 1; i++) {
+            for (int j = 1; j < g[0].length - 1; j++) {
+                if (g[i][j] > 0) {
+                    this.game[i][j] += 1;
+                    g[i][j] += 1;
+                }
+            }
+        }
+
+        this.game[headY][headX] = 1;
+        g[headY][headX] = 1;
+
+        for (int i = 1; i < g.length - 1; i++) {
+            for (int j = 1; j < g[0].length - 1; j++) {
+                if (g[i][j] > longueur) {
+                    g[i][j] = 0;
+                    this.game[i][j] = 0;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int longueur = 4;
         int headX = 8;
