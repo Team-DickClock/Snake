@@ -6,7 +6,7 @@ Notre snake est représenté par plusieurs carré de 5x5 pixel
 */
 
 public class GestionSnake {
-    int game[][];
+    private int game[][];
     int longueur;
     int headX;
     int headY;
@@ -18,7 +18,7 @@ public class GestionSnake {
         this.headX = headX;
         this.headY = headY;
 
-        if (checkValue(headX, headY)) {
+        if (checkValue(this.headX, this.headY)) {
             // initialisation du tableau avec que des 0
             for (int i = 0; i < game.length; i++) {
                 for (int j = 0; j < game[0].length; j++) {
@@ -36,7 +36,7 @@ public class GestionSnake {
                 game[game[0].length - 1][i] = -2;
             }
             // Initialisation du snake de début
-            for (int i = headX - longueur; i <= headX; i++) {
+            for (int i = headX - longueur; i < headX; i++) {
                 game[headY][i] = headX - i;
             }
         }
@@ -44,11 +44,11 @@ public class GestionSnake {
 
     public boolean checkValue(int x, int y) {
         // Vérification que les valeurs choisies sont corrects
-        if (y - longueur < 1 || y > game.length - 2) {
+        if (y  < 1 || y > game.length - 1) {
             System.out.println("This is not the right value for headY");
             return false;
         }
-        if (x < 1 || x > game[0].length - 2) {
+        if (x - longueur < 1 || x > game[0].length - 1) {
             System.out.println("This is not the right value for headX");
             return false;
         }
@@ -85,53 +85,51 @@ public class GestionSnake {
         return temp;
     }
 
-    public void deplacementSnake(int[][] g, char direction){
+    public void deplacementSnake(char direction){
         switch (direction) {
             case 'w':
-                headY--;
+                this.headY--;
                 break;
             case 'a':
-                headX--;
+                this.headX--;
                 break;
             case 's':
-                headY++;
+                this.headY++;
                 break;
             case 'd':
-                headX++;
+                this.headX++;
                 break;
             default:
                 break;
         }
         // Gestion de la case qui vient
-        if (g[headY][headX] == -1) {
+        int a =this.game[this.headY][this.headX]; 
+        if (this.game[this.headY][this.headX] == -1) {
             longueur++;
             this.game[headY][headX] = 0;
-            g[headY][headX] = 0;
         }
-        if (game[headY][headX] == -2) {
+        if (a == -2) {
             System.out.println("YOU LOSE");
         }
-        if (game[headY][headX] > 0) {
+        if (this.game[this.headY][this.headX] > 0) {
             System.out.println("YOU LOSE");
         }
 
         // gestion du mouvement du snake
-        for (int i = 1; i < g.length - 1; i++) {
-            for (int j = 1; j < g[0].length - 1; j++) {
-                if (g[i][j] > 0) {
+        for (int i = 1; i < this.game.length - 1; i++) {
+            for (int j = 1; j < this.game[0].length - 1; j++) {
+                if (this.game[i][j] > 0) {
                     this.game[i][j] += 1;
-                    g[i][j] += 1;
+                
                 }
             }
         }
 
         this.game[headY][headX] = 1;
-        g[headY][headX] = 1;
-
-        for (int i = 1; i < g.length - 1; i++) {
-            for (int j = 1; j < g[0].length - 1; j++) {
-                if (g[i][j] > longueur) {
-                    g[i][j] = 0;
+        
+        for (int i = 1; i < this.game.length - 1; i++) {
+            for (int j = 1; j < this.game[0].length - 1; j++) {
+                if (this.game[i][j] > longueur) {
                     this.game[i][j] = 0;
                 }
             }
@@ -139,14 +137,36 @@ public class GestionSnake {
     }
 
     public static void main(String[] args) {
-        int longueur = 4;
+        /* int longueur = 4;
         int headX = 8;
         int headY = 1;
         int[][] game = new int[10][10];
-        Random rand = new Random();
+        Random rand = new Random(); */
+        GestionSnake s = new GestionSnake(10, 10, 4, 8,1);
+        char dir;
+        for (int i = 0; i < s.game.length; i++) {
+            for (int j = 0; j < s.game[0].length; j++) {
+                System.out.print(s.game[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        while(true){
+            System.out.println("Entrez la prohaine direction:");
+            dir = Input.readChar();
+            //s.gestionPomme(s.game);
+            s.deplacementSnake(dir);
+
+            for (int i = 0; i < s.game.length; i++) {
+                for (int j = 0; j < s.game[0].length; j++) {
+                    System.out.print(s.game[i][j] + " ");
+                }
+                System.out.println();
+            }
+        }
 
         // initialisation du tableau avec que des 0
-        for (int i = 0; i < game.length; i++) {
+        /*for (int i = 0; i < game.length; i++) {
             for (int j = 0; j < game[0].length; j++) {
                 game[i][j] = 0;
             }
@@ -162,13 +182,13 @@ public class GestionSnake {
         }
 
         // Initialisation du snake de début
-        /*
-         * for (int i = 1; i < longueur + 1; i++) {
-         * game[1][i] = longueur - i + 1;
-         * }
-         */
+        
+         for (int i = 1; i < longueur + 1; i++) {
+         game[1][i] = longueur - i + 1;
+         }
+        
         for (int i = headX - longueur; i <= headX; i++) {
-            game[headY][i] = headX - i;
+            game[headY][i] = headX - i+1;
         }
 
         // affichage de la situation de départ
@@ -265,15 +285,12 @@ public class GestionSnake {
             } while (game[pommeY][pommeX] != 0);
             if (!pomme) {
                 game[pommeY][pommeX] = -1;
-            }
+            }*/
 
-            for (int i = 0; i < game.length; i++) {
-                for (int j = 0; j < game[0].length; j++) {
-                    System.out.print(game[i][j] + " ");
-                }
-                System.out.println();
-            }
+
+
+         
         }
 
     }
-}
+
