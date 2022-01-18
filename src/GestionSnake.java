@@ -1,4 +1,7 @@
+import hevs.graphics.FunGraphics;
 import hevs.utils.Input;
+
+import java.awt.Color;
 import java.util.Random;
 
 /*
@@ -11,6 +14,7 @@ public class GestionSnake {
     int headX;
     int headY;
     boolean endGame = false;
+
 
     public GestionSnake(int height, int width, int initialLength, int headX, int headY) {
         game = new int[height][width];
@@ -63,26 +67,26 @@ public class GestionSnake {
         return temp;
     }
 
-    public int[] gestionPomme(int[][] game) {
+    public void gestionPomme() {
         int[] temp = new int[2];
         boolean pomme = false;
 
         // Est-ce qu'il reste une pomme sur l'écran
         for (int i = 0; i < game.length; i++) {
             for (int j = 0; j < game[0].length; j++) {
-                if (game[i][j] == -1)
+                if (game[i][j] == -1) {
                     pomme = true;
+                }
             }
-            // Placer une pomme de manière aléatoire
+        }
+        // Placer une pomme de manière aléatoire
+        if (pomme == false) {
             do {
                 temp = coordPomme(game);
             } while (game[temp[0]][temp[1]] != 0);
-
-            if (!pomme) {
-                return temp;
-            }
+            game[temp[0]][temp[1]] = -1;
         }
-        return temp;
+
     }
 
     public void deplacementSnake(char direction) {
@@ -145,7 +149,9 @@ public class GestionSnake {
          * int[][] game = new int[10][10];
          * Random rand = new Random();
          */
-        GestionSnake s = new GestionSnake(10, 10, 4, 4, 1);
+        FunGraphics a = new FunGraphics(100, 100);
+        a.setColor(Color.BLACK);
+        GestionSnake s = new GestionSnake(20, 20, 4, 4, 1);
         char dir;
         for (int i = 0; i < s.game.length; i++) {
             for (int j = 0; j < s.game[0].length; j++) {
@@ -153,18 +159,34 @@ public class GestionSnake {
             }
             System.out.println();
         }
+        for (int i = 0; i < s.game.length; i++) {
+            for (int j = 0; j < s.game[0].length; j++) {
+                if (s.game[i][j] == -2) {
+                    a.drawFillRect(j*5, i*5, 5, 5);
+                }
+            }
+        }
 
         while (!s.endGame) {
             System.out.println("Entrez la prohaine direction:");
             dir = Input.readChar();
             s.deplacementSnake(dir);
-            s.game[s.gestionPomme(s.game)[0]][s.gestionPomme(s.game)[1]] = - 1;
+            s.gestionPomme();
+            // s.game[s.gestionPomme(s.game)[0]][s.gestionPomme(s.game)[1]] = -1;
 
             for (int i = 0; i < s.game.length; i++) {
                 for (int j = 0; j < s.game[0].length; j++) {
                     System.out.print(s.game[i][j] + " ");
                 }
                 System.out.println();
+            }
+            a.clear();
+            for (int i = 0; i < s.game.length; i++) {
+                for (int j = 0; j < s.game[0].length; j++) {
+                    if (s.game[i][j] == -2 || s.game[i][j] > 0 || s.game[i][j] == -1) {
+                        a.drawFillRect(j*5, i*5, 5, 5);
+                    }
+                }
             }
         }
 
