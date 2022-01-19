@@ -14,6 +14,7 @@ public class GestionSnake {
     int headX;
     int headY;
     boolean endGame = false;
+    enum direction {UP, DOWN, LEFT, RIGHT};
 
 
     public GestionSnake(int height, int width, int initialLength, int headX, int headY) {
@@ -21,6 +22,7 @@ public class GestionSnake {
         longueur = initialLength;
         this.headX = headX;
         this.headY = headY;
+        direction foo = direction.UP;
 
         if (checkValue(this.headX, this.headY)) {
             // initialisation du tableau avec que des 0
