@@ -15,7 +15,7 @@ public class Interface {
     };
 
     FunGraphics windows;
-    private static direction nextDir = direction.NOCHANGE;
+     static direction nextDir = direction.RIGHT;
 
     /**
      * Ask for next direction on terminal and get this one.
@@ -87,8 +87,9 @@ public class Interface {
             return direction.RIGHT;
         }
 
-        return direction.NOCHANGE;
-        }
+        return direction.NOCHANGE; 
+        //return nextDir;
+    }
 
     /**
      * Put the score on terminal (should be used at the end of the game)
