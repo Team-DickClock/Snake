@@ -20,7 +20,7 @@ public class Game {
     public Game(int height, int width){
 
         // Create a new interface (should be used for FunGraphics)
-        this.interfaceGame = new Interface(height, width);
+        
 
         // define the game is on progress
         this.inProgress = true;
