@@ -12,7 +12,7 @@ public class App {
         while (true) {
             Game snakeGame = new Game(10,20);
             while (snakeGame.isInProgress()) {
-                //Interface.drawOnTerminal(snakeGame.getBoard());
+                Interface.drawOnTerminal(snakeGame.getBoard());
                 snakeGame.play(Interface.getDirectionTerminal());
                 /**
                  * Pour indice, voilà une façon propre selon moi de faire la direction avec FunGraphics:
