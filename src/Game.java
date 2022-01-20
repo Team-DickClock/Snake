@@ -6,7 +6,7 @@ public class Game {
     final int NUMBEROFFRUIT = 1; // number of fruit we want have on the game in same time
     private boolean inProgress; // if the game is on progress or is finish
     private int[][] board; // the current board of game
-    private Interface.direction previousDirection = Interface.direction.NOCHANGE; // previous direction
+    //private Interface.direction previousDirection = Interface.direction.NOCHANGE; // previous direction
     private Snake snake; // the snake for the game
     public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
     
@@ -53,34 +53,46 @@ public class Game {
      * Main method of Game. All things for play one round (one movement)
      * @param dir Direction the snake should go
      */
-    public void play(Interface.direction dir){
+    public void play(int dir){
 
         // If direction didn't change, just continu with same direction than previous round.
-        if (dir == Interface.direction.NOCHANGE){
-            dir = previousDirection;
-        }
-        previousDirection = dir;
+        if (dir == Interface.previousDir){
+            dir = Interface.previousDir;
+        } else
+        Interface.nextDir = dir;
         
         // Check where is the head of snake at the beginning of the round
         int headX = snake.getHead(board)[0];
         int headY = snake.getHead(board)[1];
 
         // Change place of head for next round depend to the direction.
-        switch (dir) {
-            case UP:
+        /* switch (dir) {
+            case Interface.up:
                 headY--;
                 break;
-            case LEFT:
+            case Interface.left:
                 headX--;
                 break;
-            case DOWN:
+            case Interface.down:
                 headY++;
                 break;
-            case RIGHT:
+            case Interface.right:
                 headX++;
                 break;
             default:
                 break;
+        } */
+        if (dir == Interface.up) {
+            headY--;
+        }
+        if (dir == Interface.left) {
+            headX--;
+        }
+        if (dir == Interface.down) {
+            headY++;
+        }
+        if (dir == Interface.right) {
+            headX++;
         }
 
         // Check if head is on the board and if not, continue the game
