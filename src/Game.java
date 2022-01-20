@@ -1,8 +1,15 @@
+/**
+ * Main Class for the game. 
+ * Manage everything about the game
+ */
 public class Game {
-    final int NUMBEROFFRUIT = 1;
-    private boolean inProgress;
-    private int[][] board;
-    private Snake snake;
+    final int NUMBEROFFRUIT = 1; // number of fruit we want have on the game in same time
+    private boolean inProgress; // if the game is on progress or is finish
+    private int[][] board; // the current board of game
+    private Interface.direction previousDirection = Interface.direction.NOCHANGE; // previous direction
+    private Snake snake; // the snake for the game
+    public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
+    
 
     /**
      * Create a game with a specific size of board
@@ -11,6 +18,10 @@ public class Game {
      * @param width width of the board
      */
     public Game(int height, int width){
+
+        // Create a new interface (should be used for FunGraphics)
+        this.interfaceGame = new Interface(height, width);
+
         // define the game is on progress
         this.inProgress = true;
 
@@ -30,16 +41,31 @@ public class Game {
 
     }
 
+    /**
+     * Check if the game is on progress
+     * @return Return true if the game is on progress and false if is not.
+     */
     public boolean isInProgress(){
         return this.inProgress;
     }
 
+    /**
+     * Main method of Game. All things for play one round (one movement)
+     * @param dir Direction the snake should go
+     */
     public void play(Interface.direction dir){
+
+        // If direction didn't change, just continu with same direction than previous round.
+        if (dir == Interface.direction.NOCHANGE){
+            dir = previousDirection;
+        }
+        previousDirection = dir;
         
-        //
+        // Check where is the head of snake at the beginning of the round
         int headX = snake.getHead(board)[0];
         int headY = snake.getHead(board)[1];
 
+        // Change place of head for next round depend to the direction.
         switch (dir) {
             case UP:
                 headY--;
@@ -57,14 +83,20 @@ public class Game {
                 break;
         }
 
-        if(headY < board.length && headX < board[0].length && headX*headY >= 0){
-            if(board[headY][headX]>0){
+        // Check if head is on the board and if not, continue the game
+        if(headY < board.length && headX < board[0].length && headX*headY >= 0){ 
+
+            // Check if head don't hit a part of body of snake and turn of the game if yes
+            if(board[headY][headX]>0){ 
                 this.inProgress = false;
             } else {
+
+                // Check if a fruit is on place to the next position of the head of snake and makes the snake grow if yes
                 if (Fruit.isFruit(board[headY][headX])) {
                     snake.growUp(Fruit.eatFruit(board[headY][headX]));
                 }
                 
+                // Place the new snake on the board
                 board = snake.placeSnake(board, returnPositionXY(headX, headY));
     
                 // Create a Fruit if not enough fruit(s) exist
@@ -76,15 +108,24 @@ public class Game {
             this.inProgress = false;
         }
 
+        // if game is finish, reset the number of fruit
         if(!this.inProgress){
             Fruit.reset();
         }
     }
 
+    /**
+     * Get the score (should used only at the end of the game)
+     * @return score (how many point you gain during the game with eating fruits)
+     */
     public int getScore(){
         return snake.getScore();
     }
 
+    /**
+     * Get the board of game
+     * @return the current board of the game
+     */
     public int[][] getBoard(){
         return board;
     }

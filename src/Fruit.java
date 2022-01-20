@@ -62,7 +62,7 @@ public class Fruit {
      * @return return the random fruit
      */
     private static int chooseFruit(){
-        switch (new Random().nextInt(2)) { // product 1/3 chance
+        switch (new Random().nextInt(2)) { // With 2, it's only Apple but with 3 is 1/3 Banana and 2/3 apple. with for is 1/4 for banana, ...
             case 1:
                 return VALUEFORAPPLE;
 
