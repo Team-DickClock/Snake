@@ -2,6 +2,7 @@ import hevs.utils.Input;
 import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class Interface {
 
@@ -14,8 +15,10 @@ public class Interface {
         NOCHANGE
     };
 
+    public final static int SNAKESIZE = 10;
+
     FunGraphics windows;
-     static direction nextDir = direction.RIGHT;
+    static direction nextDir = direction.RIGHT;
 
     /**
      * Ask for next direction on terminal and get this one.
@@ -51,19 +54,20 @@ public class Interface {
 
     public Interface(int height, int width) {
 
-        FunGraphics windows = new FunGraphics(width, height);
-        windows.setKeyManager(new KeyAdapter(){public void keyPressed(KeyEvent e) {
-            
-                if(e.getKeyCode()==Settings.Up)
-                    nextDir=direction.UP;
-                else if (e.getKeyCode()==Settings.Down)
-                    nextDir=direction.DOWN;
-                else if(e.getKeyCode()==Settings.Left)
-                    nextDir=direction.LEFT;
-                else if(e.getKeyCode()==Settings.Right)
-                    nextDir=direction.RIGHT;
+        windows = new FunGraphics(width*SNAKESIZE, height*SNAKESIZE);
+        windows.setKeyManager(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+
+                if (e.getKeyCode() == Settings.Up)
+                    nextDir = direction.UP;
+                else if (e.getKeyCode() == Settings.Down)
+                    nextDir = direction.DOWN;
+                else if (e.getKeyCode() == Settings.Left)
+                    nextDir = direction.LEFT;
+                else if (e.getKeyCode() == Settings.Right)
+                    nextDir = direction.RIGHT;
                 else
-                    nextDir=direction.NOCHANGE;
+                    nextDir = direction.NOCHANGE;
             }
 
         });
@@ -72,35 +76,38 @@ public class Interface {
 
     public static direction getDirectionFunGraphics() {
         // Here is for the code for return the direction with the method on FunGraphic
-        if(nextDir == direction.UP){
+        if (nextDir == direction.UP) {
             return direction.UP;
         }
-        if(nextDir == direction.DOWN){
-            System.out.println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
+        if (nextDir == direction.DOWN) {
+            System.out.println(
+                    "YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
             return direction.DOWN;
-            
+
         }
-        if(nextDir == direction.LEFT){
+        if (nextDir == direction.LEFT) {
             return direction.LEFT;
         }
-        if(nextDir == direction.RIGHT){
+        if (nextDir == direction.RIGHT) {
             return direction.RIGHT;
         }
 
-        return direction.NOCHANGE; 
-        //return nextDir;
+        return direction.NOCHANGE;
+        // return nextDir;
     }
 
     /**
      * Put the score on terminal (should be used at the end of the game)
+     * 
      * @param score The score to be put on terminal
      */
-        public static void putScoreTerminal(int score) {
+    public static void putScoreTerminal(int score) {
         System.out.println("Your score is: " + score);
     }
 
     /**
      * Draw the board of the game on terminal
+     * 
      * @param board the current board to be drawing
      */
     public static void drawOnTerminal(int[][] board) {
@@ -109,6 +116,33 @@ public class Interface {
                 System.out.print(board[y][x] + " ");
             }
             System.out.println("");
+        }
+    }
+
+    /**
+     * Draw the board with some color settings for the differents part of the sanke 
+     * @param board
+     * @param head
+     * @param snake
+     * @param apple
+     */
+    public void drawOnFG(int[][] board, Color head, Color snake, Color apple) {
+        windows.clear();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == Fruit.VALUEFORAPPLE) {
+                    windows.setColor(apple);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+                if (board[i][j] > 0) {
+                    windows.setColor(snake);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+                if (board[i][j] == 1) {
+                    windows.setColor(head);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+            }
         }
     }
 }
