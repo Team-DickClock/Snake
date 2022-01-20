@@ -15,7 +15,7 @@ public class Interface {
     };
 
     FunGraphics windows;
-    private direction nextDir = direction.NOCHANGE;
+    private static direction nextDir = direction.NOCHANGE;
 
     /**
      * Ask for next direction on terminal and get this one.
@@ -67,10 +67,26 @@ public class Interface {
             }
 
         });
+
     }
 
-    public direction getDirectionFunGraphics() {
+    public static direction getDirectionFunGraphics() {
         // Here is for the code for return the direction with the method on FunGraphic
+        if(nextDir == direction.UP){
+            return direction.UP;
+        }
+        if(nextDir == direction.DOWN){
+            System.out.println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
+            return direction.DOWN;
+            
+        }
+        if(nextDir == direction.LEFT){
+            return direction.LEFT;
+        }
+        if(nextDir == direction.RIGHT){
+            return direction.RIGHT;
+        }
+
         return direction.NOCHANGE;
         }
 

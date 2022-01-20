@@ -84,7 +84,7 @@ public class Game {
         }
 
         // Check if head is on the board and if not, continue the game
-        if(headY < board.length && headX < board[0].length && headX*headY >= 0){ 
+        if(headY < board.length && headX < board[0].length && headX>= 0 && headY>=0){ 
 
             // Check if head don't hit a part of body of snake and turn of the game if yes
             if(board[headY][headX]>0){ 

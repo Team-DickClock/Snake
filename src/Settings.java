@@ -1,10 +1,10 @@
 import hevs.graphics.FunGraphics;
 
 public class Settings {
-    public static int Up = 'w';
-    public static int Down = 's';
-    public static int Right = 'd';
-    public static int Left = 'a';
+    public static int Up = 'W';
+    public static int Down = 'S';
+    public static int Right = 'D';
+    public static int Left = 'A';
 
 //Constructeur
     public Settings(){

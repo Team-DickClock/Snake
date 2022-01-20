@@ -24,7 +24,7 @@ public class Fruit {
     }
     
     /**
-     * Check is a value is a fruit
+     * Check if the value is a fruit
      * @param f The value to be tested
      * @return true if the value is a fruit and false if is not
      */
