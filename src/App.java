@@ -12,21 +12,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class App {
     public static void main(String[] args) throws Exception {
-    
-            Game snakeGame = new Game(30,30);
-            while (snakeGame.isInProgress()) {
-                //Interface.drawOnTerminal(snakeGame.getBoard());
-                //snakeGame.play(Interface.getDirectionFunGraphics());
-                //snakeGame.play(Interface.getDirectionTerminal());
-                snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);;
-                snakeGame.play(Interface.nextDir);
-                //snakeGame.play(Interface.getDirectionTerminal());
 
-                TimeUnit.MILLISECONDS.sleep(Settings.level);
-            }
-            Interface.putScoreTerminal(snakeGame.getScore());
-    
-        //Interface inter = new Interface(640, 480);
-
+        Game snakeGame = new Game(30, 30);
+        while (snakeGame.isInProgress()) {
+            // Affichage du jeu sur la fenetre graphique
+            snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);
+            // lecture des touches du clavier
+            snakeGame.play(Interface.nextDir);
+            // Gestion de la vitesse de döplacement du serpent
+            TimeUnit.MILLISECONDS.sleep(Settings.level);
+        }
     }
 }
