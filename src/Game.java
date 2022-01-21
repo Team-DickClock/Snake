@@ -7,8 +7,6 @@ public class Game {
     final int NUMBEROFFRUIT = 1; // number of fruit we want have on the game in same time
     private boolean inProgress; // if the game is on progress or is finish
     private int[][] board; // the current board of game
-    // private Interface.direction previousDirection = Interface.direction.NOCHANGE;
-    // // previous direction
     private Snake snake; // the snake for the game
     public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
     private Interface.direction previousDirection = Interface.direction.RIGHT; // previous direction

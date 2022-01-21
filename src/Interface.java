@@ -3,8 +3,8 @@ import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Interface {
 
@@ -18,13 +18,18 @@ public class Interface {
     };
 
     public final static int SNAKESIZE = 10;
+    private static int windowsizeWidth;
+    private static int windowsizeHeight;
+    public  int stateOfGraphic = 0;
 
     FunGraphics windows;
     public static direction nextDir = direction.RIGHT;
 
     public Interface(int height, int width) {
+            windowsizeWidth = width*SNAKESIZE;
+            windowsizeHeight = height*SNAKESIZE;
 
-        windows = new FunGraphics(height * SNAKESIZE, width * SNAKESIZE);
+        windows = new FunGraphics(windowsizeHeight, windowsizeWidth);
         windows.setKeyManager(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == Settings.Up) {
@@ -42,11 +47,61 @@ public class Interface {
                     nextDir = direction.NOCHANGE;
 
                 }
+            else if(e.getKeyCode()==Settings.Left)
+                {nextDir=direction.LEFT;
+                //windows.drawFillRect(50, 50, 5, 5);
+                }
+            else if(e.getKeyCode()==Settings.Right)
+                {nextDir=direction.RIGHT;
+                //windows.drawFillRect(150, 50, 5, 5);
+                }
+            else
+                {nextDir=direction.NOCHANGE;
+                   
+                }
+        }});
+
+        windows.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              super.mouseClicked(e);
+              MouseEvent event = e;
+              int posx = event.getX();
+              int posy = event.getY();
+              System.out.println(posx);
+              System.out.println(posy);
+              if (stateOfGraphic==0){
+              if (posx> windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*5 && posy>windowsizeHeight/2-20*1.2 && posy<windowsizeHeight/2)
+              {
+                System.out.println("START");
+                stateOfGraphic=1;
+
+              }
+              else if (posx>windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*8 && posy>windowsizeHeight-10 - 20*1.2 && posy<windowsizeHeight - 10 ) 
+              {
+                  System.out.println("SETTINGS");
+                  stateOfGraphic=2;
+              }
+              }
+            if (stateOfGraphic==2)
+            {
+                if(posx > windowsizeWidth/3 && posx<windowsizeWidth/3 + 0.75*20*4 && posy>10 && posy<10+20*1.2)
+                System.out.println("SETTINGS key up");            
             }
-        });
+            }});
+
+        
+        /* Game snakeGame = new Game(height, width);
+        while(true){
+            
+            snakeGame.play(Interface.nextDir);
+            Interface.drawOnTerminal(snakeGame.getBoard());
+        }  */
 
     }
 
+    
     /**
      * Ask for next direction on terminal and get this one.
      * 
@@ -127,4 +182,24 @@ public class Interface {
             }
         }
     }
-}
+    public void DrawStartMenuFG() {
+
+        windows.clear();
+        String start = "START";
+        String settings = "SETTINGS";
+        windows.drawString(windowsizeWidth/3, windowsizeHeight/2, start, Settings.font, 20);
+        windows.drawString(windowsizeWidth/3, windowsizeHeight-10,  settings, Settings.font, 20);
+
+       
+            }
+    
+    public void DrawSettingsMenuFG() {
+
+                windows.clear();
+                String keyup = "Up : " + (char)Settings.Up ;
+                windows.drawString(windowsizeWidth/3, 10, keyup, Settings.font, 20);
+        
+               
+                    }
+        }
+ 
