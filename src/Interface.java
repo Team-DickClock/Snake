@@ -52,6 +52,8 @@ public class Interface {
                    
                 }
         }});
+
+        
         /* Game snakeGame = new Game(height, width);
         while(true){
             
@@ -165,6 +167,17 @@ public class Interface {
         }
     }
     public void DrawStartMenuFG() {
+/*         windows.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              super.mouseClicked(e);
+              MouseEvent event = e;
+              int posx = event.getX();
+              int posy = event.getY();
+              fg.drawFilledCircle(posx, posy, 5);
+            }
+          }); */
         windows.clear();
         String start = "START";
         String settings = "SETTINGS";
