@@ -3,7 +3,8 @@ import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-import java.util.concurrent.TimeUnit;
+
+
 
 public class Interface {
 
@@ -23,40 +24,28 @@ public class Interface {
 
     public Interface(int height, int width) {
 
-        windows = new FunGraphics(height*SNAKESIZE, width*SNAKESIZE);
+        windows = new FunGraphics(height * SNAKESIZE, width * SNAKESIZE);
         windows.setKeyManager(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {            
-            if(e.getKeyCode()==Settings.Up)
-                {nextDir=direction.UP;
-                //windows.drawFillRect(100, 10, 5, 5);
-            }
-            else if (e.getKeyCode()==Settings.Down)
-                {nextDir=direction.DOWN;
-                //windows.drawFillRect(100, 100, 5, 5);
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == Settings.Up) {
+                    nextDir = direction.UP;
+                } else if (e.getKeyCode() == Settings.Down) {
+                    nextDir = direction.DOWN;
+
+                } else if (e.getKeyCode() == Settings.Left) {
+                    nextDir = direction.LEFT;
+                    // windows.drawFillRect(50, 50, 5, 5);
+                } else if (e.getKeyCode() == Settings.Right) {
+                    nextDir = direction.RIGHT;
+
+                } else {
+                    nextDir = direction.NOCHANGE;
 
                 }
-            else if(e.getKeyCode()==Settings.Left)
-                {nextDir=direction.LEFT;
-                //windows.drawFillRect(50, 50, 5, 5);
-                }
-            else if(e.getKeyCode()==Settings.Right)
-                {nextDir=direction.RIGHT;
-                //windows.drawFillRect(150, 50, 5, 5);
-                }
-            else
-                {nextDir=direction.NOCHANGE;
-                    System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-                }
-        }});
-        /* Game snakeGame = new Game(height, width);
-        while(true){
-            
-            snakeGame.play(Interface.nextDir);
-            Interface.drawOnTerminal(snakeGame.getBoard());
-        }  */
+            }
+        });
 
     }
-
 
     /**
      * Ask for next direction on terminal and get this one.
@@ -88,29 +77,6 @@ public class Interface {
         }
     }
 
-    // public static direction getDirectionFunGraphics() {
-    // Here is for the code for return the direction with the method on FunGraphic
-    /*
-     * if(nextDir == direction.UP){
-     * return direction.UP;
-     * }
-     * if(nextDir == direction.DOWN){
-     * System.out.
-     * println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- "
-     * );
-     * return direction.DOWN;
-     * 
-     * }
-     * if(nextDir == direction.LEFT){
-     * return direction.LEFT;
-     * }
-     * if(nextDir == direction.RIGHT){
-     * return direction.RIGHT;
-     * }
-     * 
-     * return direction.NOCHANGE;
-     * }
-     */
     /**
      * Put the score on terminal (should be used at the end of the game)
      * 
@@ -135,7 +101,8 @@ public class Interface {
     }
 
     /**
-     * Draw the board with some color settings for the differents part of the sanke 
+     * Draw the board with some color settings for the differents part of the sanke
+     * 
      * @param board
      * @param head
      * @param snake
