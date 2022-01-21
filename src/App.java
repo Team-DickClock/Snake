@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class App {
     public static void main(String[] args) throws Exception {
+    /*
             Game snakeGame = new Game(10,20);
             while (snakeGame.isInProgress()) {
                 Interface.drawOnTerminal(snakeGame.getBoard());
@@ -21,12 +22,12 @@ public class App {
                 //snakeGame.play(Interface.nextDir);
                 //snakeGame.play(Interface.getDirectionTerminal());
 
-                /**
-                 * Pour indice, voilà une façon propre selon moi de faire la direction avec FunGraphics:
-                 * snakeGame.play(snakeGame.interfaceGame.getDirectionFunGraphics());
-                 */
+                
                 TimeUnit.SECONDS.sleep(1);
             }
             Interface.putScoreTerminal(snakeGame.getScore());
+    */
+        Interface inter = new Interface(640, 480);
+
     }
 }
