@@ -4,30 +4,43 @@
  * Manage everything about the game
  */
 public class Game {
+    
     final int NUMBEROFFRUIT = 1; // number of fruit we want have on the game in same time
+
+    private int height;
+    private int width;
     private boolean inProgress; // if the game is on progress or is finish
     private int[][] board; // the current board of game
     private Snake snake; // the snake for the game
-    public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
     private Interface.direction previousDirection = Interface.direction.RIGHT; // previous direction
+    
+    public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
 
     /**
-     * Create a game with a specific size of board
-     * It include the snake at the beginning
+     * Define size for board and create interface
      * 
      * @param height height of the board
      * @param width  width of the board
      */
     public Game(int height, int width) {
+        this.height = height;
+        this.width = width;
 
         // Create a new interface (should be used for FunGraphics)
         interfaceGame = new Interface(width, height);
+    }
+
+    /**
+     * Initialize the game.
+     * Create the board with the specific size and include the snake
+     */
+    public void Initialization(){
 
         // define the game is on progress
         this.inProgress = true;
 
         // create a board for the game
-        this.board = new int[height][width];
+        this.board = new int[this.height][this.width];
 
         // Initialization the board with only 0
         for (int y = 0; y < this.board.length; y++) {
@@ -37,7 +50,7 @@ public class Game {
         }
 
         // create and place the snake in the board
-        this.snake = new Snake(3, height / 2, 3, board);
+        this.snake = new Snake(3, this.height / 2, 3, board);
         this.board = this.snake.placeSnake(board);
 
     }
@@ -114,9 +127,11 @@ public class Game {
             this.inProgress = false;
         }
 
-        // if game is finish, reset the number of fruit
-        if (!this.inProgress) {
+        // if game is finish, reset the number of fruit and the direction
+        if(!this.inProgress){
             Fruit.reset();
+            Interface.nextDir = Interface.direction.NOCHANGE;
+            previousDirection = Interface.direction.RIGHT;
         }
     }
 

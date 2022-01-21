@@ -17,83 +17,77 @@ public class Interface {
         NOCHANGE
     };
 
-    public final static int SNAKESIZE = 10;
-    private static int windowsizeWidth;
-    private static int windowsizeHeight;
-    public  int stateOfGraphic = 0;
+    public final static int SNAKESIZE = 10; // size of a square of snake in pixel
+    private static int windowWidth; // Width of the window in pixel
+    private static int windowHeight; // Height of the window in pixel
+    public static direction nextDir = direction.NOCHANGE; // Define nextDirection
 
-    FunGraphics windows;
-    public static direction nextDir = direction.RIGHT;
+    public FunGraphics window; // Define a window for FunGraphics
+    public int stateOfGraphic = 0;
+    public boolean startGame = false;
+    public boolean goSettings = false;
 
     public Interface(int height, int width) {
-            windowsizeWidth = width*SNAKESIZE;
-            windowsizeHeight = height*SNAKESIZE;
+            windowWidth = width*SNAKESIZE;
+            windowHeight = height*SNAKESIZE;
 
-        windows = new FunGraphics(windowsizeHeight, windowsizeWidth);
-        windows.setKeyManager(new KeyAdapter() {
+        window = new FunGraphics(windowHeight, windowWidth);
+        window.setKeyManager(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == Settings.Up) {
+                if (e.getKeyCode() == Settings.up) {
                     nextDir = direction.UP;
-                } else if (e.getKeyCode() == Settings.Down) {
-                    nextDir = direction.DOWN;
-
-                } else if (e.getKeyCode() == Settings.Left) {
-                    nextDir = direction.LEFT;
-                    // windows.drawFillRect(50, 50, 5, 5);
-                } else if (e.getKeyCode() == Settings.Right) {
-                    nextDir = direction.RIGHT;
-
-                } else {
-                    nextDir = direction.NOCHANGE;
-
                 }
+                if (e.getKeyCode() == Settings.down) {
+                    nextDir = direction.DOWN;
+                }
+                if (e.getKeyCode() == Settings.left) {
+                    nextDir = direction.LEFT;
+                }
+                if (e.getKeyCode() == Settings.right) {
+                    nextDir = direction.RIGHT;
+                }
+                if (e.getKeyCode() == Settings.space){
+                    startGame = true;
+                }
+                if (e.getKeyCode() == Settings.parameter){
+                    goSettings = true;
+                }
+                
             }
         });
 
-        windows.addMouseListener(new MouseAdapter() {
+        window.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-              super.mouseClicked(e);
-              MouseEvent event = e;
-              int posx = event.getX();
-              int posy = event.getY();
-              System.out.println(posx);
-              System.out.println(posy);
-              if (stateOfGraphic==0){
-              if (posx> windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*5 && posy>windowsizeHeight/2-20*1.2 && posy<windowsizeHeight/2)
-              {
-                System.out.println("START");
-                stateOfGraphic=1;
+                super.mouseClicked(e);
+                MouseEvent event = e;
+                int posx = event.getX();
+                int posy = event.getY();
+                System.out.println(posx);
+                System.out.println(posy);
+                if (!startGame && !goSettings){
+                    if (posx> windowWidth/3 && posx<windowWidth/3+ 0.75*20*5 && posy>windowHeight/2-20*1.2 && posy<windowHeight/2) {
+                        System.out.println("START");
+                        startGame = true;
+                    } else if (posx>windowWidth/3 && posx<windowWidth/3+ 0.75*20*8 && posy>windowHeight-10 - 20*1.2 && posy<windowHeight - 10 ) {
+                        System.out.println("SETTINGS");
+                        goSettings = true;
+                    }
+                }
 
-              }
-              else if (posx>windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*8 && posy>windowsizeHeight-10 - 20*1.2 && posy<windowsizeHeight - 10 ) 
-              {
-                  System.out.println("SETTINGS");
-                  stateOfGraphic=2;
-              }
-              }
-            if (stateOfGraphic==2)
-            {
-                if(posx > windowsizeWidth/3 && posx<windowsizeWidth/3 + 0.75*20*4 && posy>10 && posy<10+20*1.2)
-                System.out.println("SETTINGS key up");            
+                if (goSettings) {
+                    if(posx > windowWidth/3 && posx<windowWidth/3 + 0.75*20*4 && posy>10 && posy<10+20*1.2){
+                        System.out.println("SETTINGS key up");            
+                    }
+                }
             }
-            }});
-
-        
-        /* Game snakeGame = new Game(height, width);
-        while(true){
-            
-            snakeGame.play(Interface.nextDir);
-            Interface.drawOnTerminal(snakeGame.getBoard());
-        }  */
-
+        });
     }
 
     
     /**
      * Ask for next direction on terminal and get this one.
-     * 
      * @return The direction (type direction on this class)
      */
     public static direction getDirectionTerminal() {
@@ -123,7 +117,6 @@ public class Interface {
 
     /**
      * Put the score on terminal (should be used at the end of the game)
-     * 
      * @param score The score to be put on terminal
      */
     public static void putScoreTerminal(int score) {
@@ -132,7 +125,6 @@ public class Interface {
 
     /**
      * Draw the board of the game on terminal
-     * 
      * @param board the current board to be drawing
      */
     public static void drawOnTerminal(int[][] board) {
@@ -145,50 +137,70 @@ public class Interface {
     }
 
     /**
-     * Draw the board with some color settings for the differents part of the sanke
-     * 
-     * @param board
-     * @param head
-     * @param snake
-     * @param apple
+     * Draw the board with some color settings for the different part of the snake
+     * @param board the initial board
+     * @param head Color for the head of snake
+     * @param snake Color for the body of the snake
+     * @param apple Color for the apple
      */
     public void drawOnFG(int[][] board, Color head, Color snake, Color apple) {
-        windows.clear();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == Fruit.VALUEFORAPPLE) {
-                    windows.setColor(apple);
-                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+
+        //Clear the window
+        window.clear();
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[0].length; x++) {
+
+                //Draw apple
+                if (board[y][x] == Fruit.VALUEFORAPPLE) {
+                    window.setColor(apple);
+                    window.drawFillRect(x * SNAKESIZE, y * SNAKESIZE, SNAKESIZE, SNAKESIZE);
                 }
-                if (board[i][j] > 0) {
-                    windows.setColor(snake);
-                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+
+                // Draw body of snake
+                if (board[y][x] > 1) {
+                    window.setColor(snake);
+                    window.drawFillRect(x * SNAKESIZE, y * SNAKESIZE, SNAKESIZE, SNAKESIZE);
                 }
-                if (board[i][j] == 1) {
-                    windows.setColor(head);
-                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+
+                // Draw head of snake
+                if (board[y][x] == 1) {
+                    window.setColor(head);
+                    window.drawFillRect(x * SNAKESIZE, y * SNAKESIZE, SNAKESIZE, SNAKESIZE);
                 }
             }
         }
     }
+
+    /**
+     * Put the score with FunGraphics (should be used at the end of the game)
+     * @param score The score to be put
+     */
+    public void putScoreOnFG(int score){
+        window.clear();
+        window.drawString(20, 40, "Your score is: " + score, Settings.font, 20);
+    }
+
+
+
+
+
+
+
+
     public void DrawStartMenuFG() {
-
-        windows.clear();
-        String start = "START";
-        String settings = "SETTINGS";
-        windows.drawString(windowsizeWidth/3, windowsizeHeight/2, start, Settings.font, 20);
-        windows.drawString(windowsizeWidth/3, windowsizeHeight-10,  settings, Settings.font, 20);
-
-       
-            }
+        window.clear();
+        String start = "START: Press \"space\"";
+        String settings = "SETTINGS: press \"p\"";
+        int size = 20;
+        window.drawString(20, 20+size, start, Settings.font, size);
+        //window.drawString(20, 20+3*size, settings, Settings.font, size);
+        //window.drawString(windowWidth/3, windowHeight/2, start, Settings.font, 20);
+        //window.drawString(windowWidth/3, windowHeight-10,  settings, Settings.font, 20);
+    }
     
     public void DrawSettingsMenuFG() {
-
-                windows.clear();
-                String keyup = "Up : " + (char)Settings.Up ;
-                windows.drawString(windowsizeWidth/3, 10, keyup, Settings.font, 20);
-        
-               
-                    }
-        }
- 
+        window.clear();
+        String keyup = "Up : " + (char)Settings.up ;
+        window.drawString(windowWidth/3, 10, keyup, Settings.font, 20);
+    }
+}

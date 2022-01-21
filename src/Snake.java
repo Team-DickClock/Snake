@@ -48,6 +48,9 @@ public class Snake {
         for (int x = startX; s <= startLength; x--) {
             board[startY][x] = s++;
         }
+        
+        System.out.println("length: " + length);
+        System.out.println("startLength: " + startLength);
         return board;
     }
 
@@ -80,6 +83,9 @@ public class Snake {
      */
     public void growUp(int n){
         length += Math.abs(n);
+        
+        System.out.println("length: " + length);
+        System.out.println("startLength: " + startLength);
     }
 
     /**
@@ -105,6 +111,15 @@ public class Snake {
      */
     public int getScore(){
         return length-startLength;
+    }
+
+    /**
+     * Just reset the length of snake. For the end of the game
+     */
+    public void reset(){
+        length = startLength;
+        System.out.println("length: " + length);
+        System.out.println("startLength: " + startLength);
     }
 
     /**
