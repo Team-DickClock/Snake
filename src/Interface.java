@@ -2,6 +2,7 @@ import hevs.utils.Input;
 import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
 
 public class Interface {
 
@@ -19,44 +20,41 @@ public class Interface {
 
     public Interface(int height, int width) {
 
-        FunGraphics windows = new FunGraphics(height, width);
-        keylistener2();
-        while(true){
+        windows = new FunGraphics(height, width);
+        windows.setKeyManager(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {            
+            if(e.getKeyCode()==Settings.Up)
+                {nextDir=direction.UP;
+                windows.drawFillRect(100, 10, 5, 5);
+            }
+            else if (e.getKeyCode()==Settings.Down)
+                {nextDir=direction.DOWN;
+                windows.drawFillRect(100, 100, 5, 5);
 
-        }
+                }
+            else if(e.getKeyCode()==Settings.Left)
+                {nextDir=direction.LEFT;
+                windows.drawFillRect(50, 50, 5, 5);
+                }
+            else if(e.getKeyCode()==Settings.Right)
+                {nextDir=direction.RIGHT;
+                windows.drawFillRect(150, 50, 5, 5);
+                }
+            else
+                {nextDir=direction.NOCHANGE;
+                    System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
+                }
+        }});
+         Game snakeGame = new Game(height, width);
+        while(true){
+            
+            snakeGame.play(Interface.nextDir);
+            Interface.drawOnTerminal(snakeGame.getBoard());
+             } 
 
     }
 
-    public void keylistener2(){
-    windows.setKeyManager(new KeyAdapter() {
-        public void keyPressed(KeyEvent e) {            
-        if(e.getKeyCode()==Settings.Up)
-            {nextDir=direction.UP;
-            System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-        }
-        else if (e.getKeyCode()==Settings.Down)
-            {nextDir=direction.DOWN;
-                System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-            }
-        else if(e.getKeyCode()==Settings.Left)
-            {nextDir=direction.LEFT;
-                System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-            }
-        else if(e.getKeyCode()==Settings.Right)
-            {nextDir=direction.RIGHT;
-                System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-            }
-        else if (e.getKeyChar()=='r'){
-            System.out.println("this is r--------------------");
-        }
-        else
-            {nextDir=direction.NOCHANGE;
-                System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
-            }
-    }});
-}
-
-    /**
+     /**
      * Ask for next direction on terminal and get this one.
      * 
      * @return The direction (type direction on this class)
