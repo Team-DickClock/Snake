@@ -137,7 +137,6 @@ public class Game {
 
     /**
      * Get the score (should used only at the end of the game)
-     * 
      * @return score (how many point you gain during the game with eating fruits)
      */
     public int getScore() {

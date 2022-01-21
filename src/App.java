@@ -1,8 +1,9 @@
 import java.util.concurrent.TimeUnit;
-
 /**
  * Class for start game.
  * Manage and connect the different classes for make a real game.
+ * @date 21/01/22
+ * @version 1.0.1
  * @author Arnaud Ducrey, Julien Chevalley, Rémi Heredero
  * @arnauducrey
  * @JuliuChe

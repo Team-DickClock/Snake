@@ -3,8 +3,6 @@ import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Interface {
 
@@ -23,10 +21,15 @@ public class Interface {
     public static direction nextDir = direction.NOCHANGE; // Define nextDirection
 
     public FunGraphics window; // Define a window for FunGraphics
-    public int stateOfGraphic = 0;
-    public boolean startGame = false;
+    public boolean startGame = false; 
     public boolean goSettings = false;
 
+    /**
+     * Create an interface (window) with specific height and width
+     * Add listener for keys
+     * @param height height of the game board
+     * @param width width of game board
+     */
     public Interface(int height, int width) {
             windowWidth = width*SNAKESIZE;
             windowHeight = height*SNAKESIZE;
@@ -53,34 +56,6 @@ public class Interface {
                     goSettings = true;
                 }
                 
-            }
-        });
-
-        window.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                MouseEvent event = e;
-                int posx = event.getX();
-                int posy = event.getY();
-                System.out.println(posx);
-                System.out.println(posy);
-                if (!startGame && !goSettings){
-                    if (posx> windowWidth/3 && posx<windowWidth/3+ 0.75*20*5 && posy>windowHeight/2-20*1.2 && posy<windowHeight/2) {
-                        System.out.println("START");
-                        startGame = true;
-                    } else if (posx>windowWidth/3 && posx<windowWidth/3+ 0.75*20*8 && posy>windowHeight-10 - 20*1.2 && posy<windowHeight - 10 ) {
-                        System.out.println("SETTINGS");
-                        goSettings = true;
-                    }
-                }
-
-                if (goSettings) {
-                    if(posx > windowWidth/3 && posx<windowWidth/3 + 0.75*20*4 && posy>10 && posy<10+20*1.2){
-                        System.out.println("SETTINGS key up");            
-                    }
-                }
             }
         });
     }
@@ -180,27 +155,22 @@ public class Interface {
         window.drawString(20, 40, "Your score is: " + score, Settings.font, 20);
     }
 
-
-
-
-
-
-
-
+    /**
+     * Draw the start menu with FunGraphics
+     */
     public void DrawStartMenuFG() {
         window.clear();
-        String start = "START: Press \"space\"";
-        String settings = "SETTINGS: press \"p\"";
         int size = 20;
+
+        String start = "START: Press \"space\"";
         window.drawString(20, 20+size, start, Settings.font, size);
+        
+        //String settings = "SETTINGS: press \"p\"";
         //window.drawString(20, 20+3*size, settings, Settings.font, size);
-        //window.drawString(windowWidth/3, windowHeight/2, start, Settings.font, 20);
-        //window.drawString(windowWidth/3, windowHeight-10,  settings, Settings.font, 20);
     }
     
     public void DrawSettingsMenuFG() {
         window.clear();
-        String keyup = "Up : " + (char)Settings.up ;
-        window.drawString(windowWidth/3, 10, keyup, Settings.font, 20);
+        // code for setting menu
     }
 }
