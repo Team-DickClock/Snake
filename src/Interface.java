@@ -17,13 +17,16 @@ public class Interface {
     };
 
     public final static int SNAKESIZE = 10;
+    private static int windowsizeWidth, windowsizeHeight;
 
     FunGraphics windows;
     public static direction nextDir = direction.RIGHT;
 
     public Interface(int height, int width) {
+            windowsizeWidth = width*SNAKESIZE;
+            windowsizeHeight = height*SNAKESIZE;
 
-        windows = new FunGraphics(height*SNAKESIZE, width*SNAKESIZE);
+        windows = new FunGraphics(windowsizeHeight, windowsizeWidth);
         windows.setKeyManager(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {            
             if(e.getKeyCode()==Settings.Up)
@@ -45,7 +48,7 @@ public class Interface {
                 }
             else
                 {nextDir=direction.NOCHANGE;
-                    System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
+                   
                 }
         }});
         /* Game snakeGame = new Game(height, width);
@@ -141,8 +144,9 @@ public class Interface {
      * @param snake
      * @param apple
      */
-    public void drawOnFG(int[][] board, Color head, Color snake, Color apple) {
+    public void drawOnFG(int[][] board, Color head, Color snake, Color apple, int choice) {
         windows.clear();
+        if(choice ==1){}
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == Fruit.VALUEFORAPPLE) {
@@ -160,4 +164,14 @@ public class Interface {
             }
         }
     }
-}
+    public void DrawStartMenuFG(int[][] board) {
+        windows.clear();
+        windowsizeHeight;
+        windowsizeWidth;
+        String start = "START";
+        String settings = "SETTINGS";
+        windows.drawString(windowsizeHeight/2, windowsizeWidth/2-start.length(), start, Settings.font, 20);
+        windows.drawString(10, windowsizeWidth - settings.length() -5, settings, Settings.font, 20);
+            }
+        }
+ 

@@ -14,11 +14,13 @@ public class App {
     public static void main(String[] args) throws Exception {
     
             Game snakeGame = new Game(30,30);
+            snakeGame.interfaceGame.DrawStartMenuFG() ;
+
             while (snakeGame.isInProgress()) {
                 //Interface.drawOnTerminal(snakeGame.getBoard());
                 //snakeGame.play(Interface.getDirectionFunGraphics());
                 //snakeGame.play(Interface.getDirectionTerminal());
-                snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);;
+                snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Settings.head, Settings.snake, Settings.apple);;
                 snakeGame.play(Interface.nextDir);
                 //snakeGame.play(Interface.getDirectionTerminal());
 
