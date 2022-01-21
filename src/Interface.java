@@ -23,37 +23,37 @@ public class Interface {
 
     public Interface(int height, int width) {
 
-        windows = new FunGraphics(height, width);
+        windows = new FunGraphics(height*SNAKESIZE, width*SNAKESIZE);
         windows.setKeyManager(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {            
             if(e.getKeyCode()==Settings.Up)
                 {nextDir=direction.UP;
-                windows.drawFillRect(100, 10, 5, 5);
+                //windows.drawFillRect(100, 10, 5, 5);
             }
             else if (e.getKeyCode()==Settings.Down)
                 {nextDir=direction.DOWN;
-                windows.drawFillRect(100, 100, 5, 5);
+                //windows.drawFillRect(100, 100, 5, 5);
 
                 }
             else if(e.getKeyCode()==Settings.Left)
                 {nextDir=direction.LEFT;
-                windows.drawFillRect(50, 50, 5, 5);
+                //windows.drawFillRect(50, 50, 5, 5);
                 }
             else if(e.getKeyCode()==Settings.Right)
                 {nextDir=direction.RIGHT;
-                windows.drawFillRect(150, 50, 5, 5);
+                //windows.drawFillRect(150, 50, 5, 5);
                 }
             else
                 {nextDir=direction.NOCHANGE;
                     System.out.println("TESSSSTTT----------------------------------------------------------------------------------------------");
                 }
         }});
-        Game snakeGame = new Game(height, width);
+        /* Game snakeGame = new Game(height, width);
         while(true){
             
             snakeGame.play(Interface.nextDir);
             Interface.drawOnTerminal(snakeGame.getBoard());
-        } 
+        }  */
 
     }
 
