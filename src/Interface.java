@@ -2,6 +2,7 @@ import hevs.utils.Input;
 import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class Interface {
 
@@ -14,13 +15,10 @@ public class Interface {
         NOCHANGE
     }; */
 
+    public final static int SNAKESIZE = 10;
+
     FunGraphics windows;
-     static int nextDir = 'D';
-     static int previousDir = 'D';
-     static int up = 'W';
-     static int down = 'S';
-     static int right = 'D';
-     static int left = 'A';
+    static direction nextDir = direction.RIGHT;
 
     /**
      * Ask for next direction on terminal and get this one.
@@ -59,9 +57,10 @@ public class Interface {
 
     public Interface(int height, int width) {
 
-        FunGraphics windows = new FunGraphics(width, height);
-        windows.setKeyManager(new KeyAdapter(){public void keyPressed(KeyEvent e) {
-            
+        windows = new FunGraphics(width*SNAKESIZE, height*SNAKESIZE);
+        windows.setKeyManager(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+
                 if(e.getKeyCode()==Settings.Up)
                     nextDir=up;
                 else if (e.getKeyCode()==Settings.Down)
@@ -83,8 +82,8 @@ public class Interface {
         }
         if(nextDir == down){
             System.out.println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
-            return down;
-            
+            return direction.DOWN;
+
         }
         if(nextDir == left){
             return left;
@@ -99,14 +98,16 @@ public class Interface {
 
     /**
      * Put the score on terminal (should be used at the end of the game)
+     * 
      * @param score The score to be put on terminal
      */
-        public static void putScoreTerminal(int score) {
+    public static void putScoreTerminal(int score) {
         System.out.println("Your score is: " + score);
     }
 
     /**
      * Draw the board of the game on terminal
+     * 
      * @param board the current board to be drawing
      */
     public static void drawOnTerminal(int[][] board) {
@@ -115,6 +116,33 @@ public class Interface {
                 System.out.print(board[y][x] + " ");
             }
             System.out.println("");
+        }
+    }
+
+    /**
+     * Draw the board with some color settings for the differents part of the sanke 
+     * @param board
+     * @param head
+     * @param snake
+     * @param apple
+     */
+    public void drawOnFG(int[][] board, Color head, Color snake, Color apple) {
+        windows.clear();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == Fruit.VALUEFORAPPLE) {
+                    windows.setColor(apple);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+                if (board[i][j] > 0) {
+                    windows.setColor(snake);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+                if (board[i][j] == 1) {
+                    windows.setColor(head);
+                    windows.drawFillRect(j * SNAKESIZE, i * SNAKESIZE, SNAKESIZE, SNAKESIZE);
+                }
+            }
         }
     }
 }

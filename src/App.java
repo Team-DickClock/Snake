@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /**
  * Class for start game.
  * Manage and connect the different classes for make a real game.
@@ -14,6 +16,9 @@ public class App {
                 Interface.drawOnTerminal(snakeGame.getBoard());
                 snakeGame.play(Interface.getDirectionFunGraphics());
                 //snakeGame.play(Interface.getDirectionTerminal());
+                snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);;
+                //snakeGame.play(Interface.nextDir);
+                snakeGame.play(Interface.getDirectionTerminal());
 
                 /**
                  * Pour indice, voilà une façon propre selon moi de faire la direction avec FunGraphics:
