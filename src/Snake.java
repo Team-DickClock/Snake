@@ -51,6 +51,13 @@ public class Snake {
         return board;
     }
 
+    /**
+     * Place the snake on the board
+     * Should be used only during the game
+     * @param board Initial board
+     * @param positionXY position to place head
+     * @return The new board
+     */
     public int[][] placeSnake(int[][] board, int[] positionXY){
         int headX = positionXY[0];
         int headY = positionXY[1];

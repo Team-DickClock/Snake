@@ -10,7 +10,7 @@ public class Settings {
     public static Color snake = Color.BLACK;
     public static Color apple = Color.BLACK;
     public static Color font = Color.BLACK;
-    public static Color bckgrnd = Color.WHITE;
+    public static Color background = Color.WHITE;
 
 
     public static int level = 150; // hard is 50, medium is 100, easy is 150

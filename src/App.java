@@ -3,7 +3,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Class for start game.
  * Manage and connect the different classes for make a real game.
- * 
  * @author Arnaud Ducrey, Julien Chevalley, Rémi Heredero
  * @arnauducrey
  * @JuliuChe
@@ -43,4 +42,4 @@ public class App {
         //Interface inter = new Interface(640, 480);
 
     }
-    }
+}
