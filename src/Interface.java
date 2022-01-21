@@ -7,13 +7,13 @@ import java.awt.Color;
 public class Interface {
 
     // Define a new type for direction
-/*     public static enum direction {
+    public static enum direction {
         UP,
         RIGHT,
         DOWN,
         LEFT,
         NOCHANGE
-    }; */
+    };
 
     public final static int SNAKESIZE = 10;
 
@@ -25,7 +25,7 @@ public class Interface {
      * 
      * @return The direction (type direction on this class)
      */
-    public static int getDirectionTerminal() {
+    public static direction getDirectionTerminal() {
         System.out.println("Entrez la prochaine direction:"); // Ask on terminal for next direction
         char dir = Input.readChar(); // get a char for choose the direction
 
@@ -33,24 +33,19 @@ public class Interface {
         switch (dir) {
             case 'w':
                 // if w is pressed, send direction UP
-                //return direction.UP;
-                return up;
+                return direction.UP;
             case 'd':
                 // if d is pressed, send direction RIGHT
-                //return direction.RIGHT;
-                return right;
+                return direction.RIGHT;
             case 's':
                 // if s is pressed, send direction DOWN
-                //return direction.DOWN;
-                return down;
+                return direction.DOWN;
             case 'a':
                 // if a is pressed, send direction LEFT
-                //return direction.LEFT;
-                return left;
+                return direction.LEFT;
 
             default:
-                //return direction.NOCHANGE;
-                return up;
+                return direction.NOCHANGE;
 
         }
     }
@@ -62,38 +57,38 @@ public class Interface {
             public void keyPressed(KeyEvent e) {
 
                 if(e.getKeyCode()==Settings.Up)
-                    nextDir=up;
+                    nextDir=direction.UP;
                 else if (e.getKeyCode()==Settings.Down)
-                    nextDir=down;
+                    nextDir=direction.DOWN;
                 else if(e.getKeyCode()==Settings.Left)
-                    nextDir=left;
+                    nextDir=direction.LEFT;
                 else if(e.getKeyCode()==Settings.Right)
-                    nextDir=right;
+                    nextDir=direction.RIGHT;
             }
 
         });
 
     }
 
-    public static int getDirectionFunGraphics() {
+    public static direction getDirectionFunGraphics() {
         // Here is for the code for return the direction with the method on FunGraphic
-        if(nextDir == up){
-            return up;
+        if(nextDir == direction.UP){
+            return direction.UP;
         }
-        if(nextDir == down){
+        if(nextDir == direction.DOWN){
             System.out.println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
             return direction.DOWN;
 
         }
-        if(nextDir == left){
-            return left;
+        if(nextDir == direction.LEFT){
+            return direction.LEFT;
         }
-        if(nextDir == right){
-            return right;
+        if(nextDir == direction.RIGHT){
+            return direction.RIGHT;
         }
 
-        //return direction.NOCHANGE; 
-        return nextDir;
+        return direction.NOCHANGE; 
+        //return nextDir;
     }
 
     /**

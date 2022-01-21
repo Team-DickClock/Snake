@@ -1,3 +1,5 @@
+
+
 /**
  * Main Class for the game. 
  * Manage everything about the game
@@ -9,6 +11,7 @@ public class Game {
     //private Interface.direction previousDirection = Interface.direction.NOCHANGE; // previous direction
     private Snake snake; // the snake for the game
     public Interface interfaceGame; // the user interface for the game (should be used for FunGraphics)
+    private Interface.direction previousDirection = Interface.direction.RIGHT; // previous direction
     
 
     /**
@@ -53,11 +56,11 @@ public class Game {
      * Main method of Game. All things for play one round (one movement)
      * @param dir Direction the snake should go
      */
-    public void play(int dir){
+    public void play(Interface.direction dir){
 
         // If direction didn't change, just continu with same direction than previous round.
-        if (dir == Interface.previousDir){
-            dir = Interface.previousDir;
+        if (dir == Interface.direction.NOCHANGE){
+            dir = previousDirection;
         } else
         Interface.nextDir = dir;
         
@@ -66,32 +69,16 @@ public class Game {
         int headY = snake.getHead(board)[1];
 
         // Change place of head for next round depend to the direction.
-        /* switch (dir) {
-            case Interface.up:
-                headY--;
-                break;
-            case Interface.left:
-                headX--;
-                break;
-            case Interface.down:
-                headY++;
-                break;
-            case Interface.right:
-                headX++;
-                break;
-            default:
-                break;
-        } */
-        if (dir == Interface.up) {
+        if (dir == Interface.direction.UP) {
             headY--;
         }
-        if (dir == Interface.left) {
+        if (dir == Interface.direction.LEFT) {
             headX--;
         }
-        if (dir == Interface.down) {
+        if (dir == Interface.direction.DOWN) {
             headY++;
         }
-        if (dir == Interface.right) {
+        if (dir == Interface.direction.RIGHT) {
             headX++;
         }
 

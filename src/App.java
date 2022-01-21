@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Class for start game.
@@ -14,19 +15,17 @@ public class App {
             Game snakeGame = new Game(10,20);
             while (snakeGame.isInProgress()) {
                 Interface.drawOnTerminal(snakeGame.getBoard());
-                snakeGame.play(Interface.getDirectionFunGraphics());
-                //snakeGame.play(Interface.getDirectionTerminal());
+                //snakeGame.play(Interface.getDirectionFunGraphics());
+                snakeGame.play(Interface.getDirectionTerminal());
                 snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);;
                 //snakeGame.play(Interface.nextDir);
-                snakeGame.play(Interface.getDirectionTerminal());
+                //snakeGame.play(Interface.getDirectionTerminal());
 
                 /**
                  * Pour indice, voilà une façon propre selon moi de faire la direction avec FunGraphics:
                  * snakeGame.play(snakeGame.interfaceGame.getDirectionFunGraphics());
                  */
-                for (double i = 0.0; i < 100000000.0; i++) {
-                    
-                }
+                TimeUnit.SECONDS.sleep(1);
             }
             Interface.putScoreTerminal(snakeGame.getScore());
     }
