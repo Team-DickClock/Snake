@@ -58,16 +58,16 @@ public class Interface {
         windows.setKeyManager(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
 
-                if (e.getKeyCode() == Settings.Up)
-                    nextDir = direction.UP;
-                else if (e.getKeyCode() == Settings.Down)
-                    nextDir = direction.DOWN;
-                else if (e.getKeyCode() == Settings.Left)
-                    nextDir = direction.LEFT;
-                else if (e.getKeyCode() == Settings.Right)
-                    nextDir = direction.RIGHT;
+                if(e.getKeyCode()==Settings.Up)
+                    nextDir=direction.UP;
+                else if (e.getKeyCode()==Settings.Down)
+                    nextDir=direction.DOWN;
+                else if(e.getKeyCode()==Settings.Left)
+                    nextDir=direction.LEFT;
+                else if(e.getKeyCode()==Settings.Right)
+                    nextDir=direction.RIGHT;
                 else
-                    nextDir = direction.NOCHANGE;
+                    nextDir=direction.NOCHANGE;
             }
 
         });
@@ -76,24 +76,23 @@ public class Interface {
 
     public static direction getDirectionFunGraphics() {
         // Here is for the code for return the direction with the method on FunGraphic
-        if (nextDir == direction.UP) {
+        if(nextDir == direction.UP){
             return direction.UP;
         }
-        if (nextDir == direction.DOWN) {
-            System.out.println(
-                    "YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
+        if(nextDir == direction.DOWN){
+            System.out.println("YOUPI JA?I GAGNE ------------------------------------------------------------------------- ");
             return direction.DOWN;
 
         }
-        if (nextDir == direction.LEFT) {
+        if(nextDir == direction.LEFT){
             return direction.LEFT;
         }
-        if (nextDir == direction.RIGHT) {
+        if(nextDir == direction.RIGHT){
             return direction.RIGHT;
         }
 
         return direction.NOCHANGE;
-        // return nextDir;
+        //return nextDir;
     }
 
     /**
