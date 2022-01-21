@@ -51,7 +51,7 @@ public class Game {
     public boolean isInProgress(){
         return this.inProgress;
     }
-public void 
+
     /**
      * Main method of Game. All things for play one round (one movement)
      * @param dir Direction the snake should go

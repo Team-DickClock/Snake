@@ -3,7 +3,7 @@ import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-import java.util.concurrent.TimeUnit;
+
 
 public class Interface {
 
@@ -17,7 +17,8 @@ public class Interface {
     };
 
     public final static int SNAKESIZE = 10;
-    private static int windowsizeWidth, windowsizeHeight;
+    private static int windowsizeWidth;
+    private static int windowsizeHeight;
 
     FunGraphics windows;
     public static direction nextDir = direction.RIGHT;
@@ -144,9 +145,8 @@ public class Interface {
      * @param snake
      * @param apple
      */
-    public void drawOnFG(int[][] board, Color head, Color snake, Color apple, int choice) {
+    public void drawOnFG(int[][] board, Color head, Color snake, Color apple) {
         windows.clear();
-        if(choice ==1){}
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == Fruit.VALUEFORAPPLE) {
@@ -164,10 +164,8 @@ public class Interface {
             }
         }
     }
-    public void DrawStartMenuFG(int[][] board) {
+    public void DrawStartMenuFG() {
         windows.clear();
-        windowsizeHeight;
-        windowsizeWidth;
         String start = "START";
         String settings = "SETTINGS";
         windows.drawString(windowsizeHeight/2, windowsizeWidth/2-start.length(), start, Settings.font, 20);
