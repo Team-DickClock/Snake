@@ -57,7 +57,8 @@ public class Interface {
 
     }
 
-     /**
+
+    /**
      * Ask for next direction on terminal and get this one.
      * 
      * @return The direction (type direction on this class)
