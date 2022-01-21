@@ -47,19 +47,8 @@ public class Interface {
                     nextDir = direction.NOCHANGE;
 
                 }
-            else if(e.getKeyCode()==Settings.Left)
-                {nextDir=direction.LEFT;
-                //windows.drawFillRect(50, 50, 5, 5);
-                }
-            else if(e.getKeyCode()==Settings.Right)
-                {nextDir=direction.RIGHT;
-                //windows.drawFillRect(150, 50, 5, 5);
-                }
-            else
-                {nextDir=direction.NOCHANGE;
-                   
-                }
-        }});
+            }
+        });
 
         windows.addMouseListener(new MouseAdapter() {
 

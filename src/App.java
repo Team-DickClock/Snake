@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) throws Exception {
     
             Game snakeGame = new Game(30,30);
-       while(true){
+        while(true){
             if ( snakeGame.interfaceGame.stateOfGraphic==0) {
                 snakeGame.interfaceGame.DrawStartMenuFG() ;
             }
@@ -40,15 +40,16 @@ public class App {
             //Interface.putScoreTerminal(snakeGame.getScore()); 
     
         //Interface inter = new Interface(640, 480);
-
+/*
         Game snakeGame = new Game(30, 30);
         while (snakeGame.isInProgress()) {
-            // Affichage du jeu sur la fenetre graphique
+            // Affichage du jeu sur la fenêtre graphique
             snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Color.BLACK, Color.BLACK, Color.BLACK);
             // lecture des touches du clavier
             snakeGame.play(Interface.nextDir);
-            // Gestion de la vitesse de döplacement du serpent
+            // Gestion de la vitesse de déplacement du serpent
             TimeUnit.MILLISECONDS.sleep(Settings.level);
         }
+*/
     }
 }
