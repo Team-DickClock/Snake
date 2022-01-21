@@ -13,21 +13,34 @@ public class App {
     public static void main(String[] args) throws Exception {
     
             Game snakeGame = new Game(30,30);
-            snakeGame.interfaceGame.DrawStartMenuFG() ;
-
-            while (snakeGame.isInProgress()) {
+       while(true){
+            if ( snakeGame.interfaceGame.stateOfGraphic==0) {
+                snakeGame.interfaceGame.DrawStartMenuFG() ;
+            }
+            System.out.println("Ce que je veux" + snakeGame.interfaceGame.stateOfGraphic);
+            if ( snakeGame.interfaceGame.stateOfGraphic==2) {
+                snakeGame.interfaceGame.DrawSettingsMenuFG() ;
+            }
+        }
+            /* while (snakeGame.isInProgress() ) {
                 //Interface.drawOnTerminal(snakeGame.getBoard());
                 //snakeGame.play(Interface.getDirectionFunGraphics());
                 //snakeGame.play(Interface.getDirectionTerminal());
+                if ( snakeGame.interfaceGame.stateOfGraphic==1){
                 snakeGame.interfaceGame.drawOnFG(snakeGame.getBoard(), Settings.head, Settings.snake, Settings.apple);;
                 snakeGame.play(Interface.nextDir);
+                }
                 //snakeGame.play(Interface.getDirectionTerminal());
 
                 TimeUnit.MILLISECONDS.sleep(Settings.level);
-            }
-            Interface.putScoreTerminal(snakeGame.getScore());
+
+            } */
+            //snakeGame.interfaceGame.stateOfGraphic = 0;
+        
+
+            //Interface.putScoreTerminal(snakeGame.getScore()); 
     
         //Interface inter = new Interface(640, 480);
 
     }
-}
+    }

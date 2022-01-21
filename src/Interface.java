@@ -3,7 +3,8 @@ import hevs.graphics.FunGraphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Interface {
 
@@ -19,6 +20,7 @@ public class Interface {
     public final static int SNAKESIZE = 10;
     private static int windowsizeWidth;
     private static int windowsizeHeight;
+    public  int stateOfGraphic = 0;
 
     FunGraphics windows;
     public static direction nextDir = direction.RIGHT;
@@ -53,6 +55,36 @@ public class Interface {
                 }
         }});
 
+        windows.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              super.mouseClicked(e);
+              MouseEvent event = e;
+              int posx = event.getX();
+              int posy = event.getY();
+              System.out.println(posx);
+              System.out.println(posy);
+              if (stateOfGraphic==0){
+              if (posx> windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*5 && posy>windowsizeHeight/2-20*1.2 && posy<windowsizeHeight/2)
+              {
+                System.out.println("START");
+                stateOfGraphic=1;
+
+              }
+              else if (posx>windowsizeWidth/3 && posx<windowsizeWidth/3+ 0.75*20*8 && posy>windowsizeHeight-10 - 20*1.2 && posy<windowsizeHeight - 10 ) 
+              {
+                  System.out.println("SETTINGS");
+                  stateOfGraphic=2;
+              }
+              }
+            if (stateOfGraphic==2)
+            {
+                if(posx > windowsizeWidth/3 && posx<windowsizeWidth/3 + 0.75*20*4 && posy>10 && posy<10+20*1.2)
+                System.out.println("SETTINGS key up");            
+            }
+            }});
+
         
         /* Game snakeGame = new Game(height, width);
         while(true){
@@ -63,7 +95,7 @@ public class Interface {
 
     }
 
-
+    
     /**
      * Ask for next direction on terminal and get this one.
      * 
@@ -167,22 +199,23 @@ public class Interface {
         }
     }
     public void DrawStartMenuFG() {
-/*         windows.addMouseListener(new MouseAdapter() {
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              super.mouseClicked(e);
-              MouseEvent event = e;
-              int posx = event.getX();
-              int posy = event.getY();
-              fg.drawFilledCircle(posx, posy, 5);
-            }
-          }); */
         windows.clear();
         String start = "START";
         String settings = "SETTINGS";
-        windows.drawString(windowsizeHeight/2, windowsizeWidth/2-start.length(), start, Settings.font, 20);
-        windows.drawString(10, windowsizeWidth - settings.length() -5, settings, Settings.font, 20);
+        windows.drawString(windowsizeWidth/3, windowsizeHeight/2, start, Settings.font, 20);
+        windows.drawString(windowsizeWidth/3, windowsizeHeight-10,  settings, Settings.font, 20);
+
+       
             }
+    
+    public void DrawSettingsMenuFG() {
+
+                windows.clear();
+                String keyup = "Up : " + (char)Settings.Up ;
+                windows.drawString(windowsizeWidth/3, 10, keyup, Settings.font, 20);
+        
+               
+                    }
         }
  
